@@ -59,9 +59,9 @@ if __name__ == '__main__':
     print(f'\n{medication_info}')
     
     outfile = open('./prescription_info.txt', 'w')
-    outfile.write(f'{medication_name}\n\n{medication_info}')
+    outfile.write(f'{medication_name}\n\n\n{medication_info}')
     outfile.close()
 
-    tts = gTTS(text = f'{medication_name}\n\n{medication_info}', lang = 'en', slow = False)
+    tts = gTTS(text = f'{medication_name}\n\n\n{medication_info}', lang = 'en', slow = False)
     tts_path = f'./prescription_info.mp3'
     tts.save(tts_path)
