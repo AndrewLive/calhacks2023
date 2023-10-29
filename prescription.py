@@ -40,7 +40,7 @@ if __name__ == '__main__':
             ) 
     
     medication_name = chat.choices[0].message.content
-    print(f'ChatGPT: {medication_name}')
+    print(f'{medication_name}')
 
     content = f'''
             Please describe the following medication:
@@ -56,7 +56,7 @@ if __name__ == '__main__':
             model="gpt-3.5-turbo", messages=messages 
             ) 
     medication_info = chat.choices[0].message.content
-    print(f'ChatGPT: {medication_info}')
+    print(f'\n{medication_info}')
     
     outfile = open('./prescription_info.txt', 'w')
     outfile.write(f'{medication_name}\n\n{medication_info}')
