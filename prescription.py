@@ -18,20 +18,6 @@ if __name__ == '__main__':
     load_dotenv()
     openai.api_key = os.getenv('APIKEY')
 
-    if not os.path.exists('images'):
-        os.makedirs('images')
-
-    # Call the Bash script to capture an image
-    subprocess.run(['./capture_image.sh'])
-
-    # Find the next available image number
-    image_num = 1
-    while os.path.exists(f'images/captured_image{image_num}.jpg'):
-        image_num += 1
-
-    # Path to the captured image
-    captured_image_path = f'images/captured_image{image_num}.jpg'
-
     # ./prescription <img file>
     if (len(sys.argv) != 2):
         exit(1)
