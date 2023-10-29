@@ -5,6 +5,7 @@ from PIL import Image
 import pytesseract
 import sys
 from gtts import gTTS
+import subprocess
 
 if __name__ == '__main__':
     '''
@@ -17,11 +18,19 @@ if __name__ == '__main__':
     load_dotenv()
     openai.api_key = os.getenv('APIKEY')
 
-    # Capture an image from the RTSP stream and save it to the 'images' folder
-    os.system('ffmpeg -i rtsp://192.168.42.1:8554/stream0 -vframes 1 images/captured_image.jpg')
+    if not os.path.exists('images'):
+        os.makedirs('images')
+
+    # Call the Bash script to capture an image
+    subprocess.run(['./capture_image.sh'])
+
+    # Find the next available image number
+    image_num = 1
+    while os.path.exists(f'images/captured_image{image_num}.jpg'):
+        image_num += 1
 
     # Path to the captured image
-    captured_image_path = 'images/captured_image.jpg'
+    captured_image_path = f'images/captured_image{image_num}.jpg'
 
     # ./prescription <img file>
     if (len(sys.argv) != 2):
