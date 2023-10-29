@@ -17,6 +17,12 @@ if __name__ == '__main__':
     load_dotenv()
     openai.api_key = os.getenv('APIKEY')
 
+    # Capture an image from the RTSP stream and save it to the 'images' folder
+    os.system('ffmpeg -i rtsp://192.168.42.1:8554/stream0 -vframes 1 images/captured_image.jpg')
+
+    # Path to the captured image
+    captured_image_path = 'images/captured_image.jpg'
+
     # ./prescription <img file>
     if (len(sys.argv) != 2):
         exit(1)
