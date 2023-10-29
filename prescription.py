@@ -4,6 +4,7 @@ import os
 from PIL import Image
 import pytesseract
 import sys
+from gtts import gTTS
 
 if __name__ == '__main__':
     '''
@@ -21,9 +22,9 @@ if __name__ == '__main__':
         exit(1)
 
     content = '''
-            Please extract ONLY the medication name, dosage, and form from the following text.
+            Please extract ONLY the medication name, dosage, form, and instructions from the following text.
             Your response should consist ONLY of the extracted medication name, dosage, and form, and nothing else.
-            If there is no medicatin name present, please state 'NO MEDICATION DETECTED':
+            If there is no medication name present, please state 'NO MEDICATION DETECTED':
 
 
             '''
@@ -44,7 +45,7 @@ if __name__ == '__main__':
             Please describe the following medication:
             {medication_name}
 
-            Please be concise, but descriptive with your explanation.
+            Please be short and concise with your explanation.
             Please describe common uses and side effects of the medication as well.
             Also, DO NOT, under any circumstance, restate the medication name, dosage, or form.
             '''
@@ -59,3 +60,7 @@ if __name__ == '__main__':
     outfile = open('./prescription_info.txt', 'w')
     outfile.write(f'{medication_name}\n\n{medication_info}')
     outfile.close()
+
+    tts = gTTS(text = f'{medication_name}\n\n{medication_info}', lang = 'en', slow = False)
+    tts_path = f'./prescription_info.mp3'
+    tts.save(tts_path)
